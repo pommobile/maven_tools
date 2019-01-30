@@ -1,0 +1,18 @@
+version: 0.2
+
+env:
+  variables:
+    ENV_CODEBUILD_MAVEN_TOOLS_GROUPID: "maven"
+    ENV_CODEBUILD_MAVEN_TOOLS_ARTIFACTID: "tools"
+    ENV_CODEBUILD_MODE: "SNAPSHOT"
+    ENV_CODEBUILD_MAVEN_X_DEBUG: "0"
+    ENV_CODEBUILD_MAVEN_E_DEBUG: "0"
+  parameter-store:
+    ENV_CODEBUILD_BUCKET_NAME: "PARBuildBCTName"
+phases:
+  install:
+    commands:
+      - ./src/main/resources/install_${ENV_CODEBUILD_MAVEN_TOOLS_GROUPID}_${ENV_CODEBUILD_MAVEN_TOOLS_ARTIFACTID}.sh
+  build:
+    commands:
+      - ./src/main/resources/build_with_maven.sh -i $CODEBUILD_INITIATOR -a $CODEBUILD_BUILD_ARN -h $CODEBUILD_RESOLVED_SOURCE_VERSION -b $ENV_CODEBUILD_BUCKET_NAME -m $ENV_CODEBUILD_MODE -x $ENV_CODEBUILD_MAVEN_X_DEBUG -e $ENV_CODEBUILD_MAVEN_E_DEBUG

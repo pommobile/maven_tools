@@ -1,0 +1,14 @@
+<settings>
+    <servers>
+        <server>
+	    <id>build-bucket-releases</id>
+	    <username>${maven.repo.id}</username>
+	    <password>${maven.repo.secret}</password>
+	</server>
+        <server>
+            <id>build-bucket-snapshots</id>
+            <username>${maven.repo.id}</username>
+            <password>${maven.repo.secret}</password>
+        </server>
+    </servers>
+</settings>
